@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Aula extends Model
 {
     use HasFactory;
+    protected $fillable=['nama','deskripsi'];
 }

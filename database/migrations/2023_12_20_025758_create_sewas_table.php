@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('sewas', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('pemesan_id')->references('id')->on('pemesans')->onDelete('cascade');
+            $table->foreignId('aula_id')->references('id')->on('aulas')->onDelete('cascade');
+            $table->foreignId('pemesan_id')->references('id')->on('pemesans')->onDelete('cascade');
             $table->date('start');
             $table->date('finish');
             $table->string('keperluan');
             $table->boolean('status');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
