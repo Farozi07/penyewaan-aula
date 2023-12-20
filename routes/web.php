@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PemesanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+//Route Pemesan
+Route::get('/',[PemesanController::class,'index'])->name('pemesan.index');
+Route::get('/pemesan/create',[PemesanController::class,'create'])->name('pemesan.create');
+Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.store');
+Route::get('/pemesan/edit/{pemesan}',[PemesanController::class,'edit'])->name('pemesan.edit');
+Route::put('/pemesan/update/{pemesan}',[PemesanController::class,'update'])->name('pemesan.update');
+Route::post('/pemesan/delete/{pemesan}',[PemesanController::class,'delete'])->name('pemesan.delete');
+
+
+//Route Sewa
