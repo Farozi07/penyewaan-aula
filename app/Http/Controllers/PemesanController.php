@@ -44,8 +44,37 @@ class PemesanController extends Controller
         }
 
         //memasukkan data ke database
+        try {
+            DB::transaction(function () use ($request) {
+                // Simpan data Pemesan
+                $pemesan = Pemesan::create([
+                    'no_ktp' => $request->no_ktp,
+                    'nama' => $request->nama,
+                    'telp' => $request->telp,
+                    'email' => $request->email,
+                ]);
 
-    return redirect()->route('pemesan.index')->with('success', 'Data berhasil disimpan.');
+                // Simpan data Aula
+                $aula = Aula::create([
+                    'id' => $request->aula,
+                ]);
+
+                // Simpan data Sewa
+                Sewa::create([
+                    'aula_id' => $aula->id,
+                    'pemesan_id' => $pemesan->id,
+                    'start' => $request->start,
+                    'finish' => $request->finish,
+                    'keperluan' => $request->keperluan,
+                    'status' => false,
+                ]);
+            });
+
+            return redirect()->route('pemesan.index')->with('success', 'Data berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->route('pemesan.create')->with('error', 'Gagal menyimpan data. Silakan coba lagi.');
+        }
+    // return redirect()->route('pemesan.index')->with('success', 'Data berhasil disimpan.');
     }
 
     public function edit(Pemesan $pemesan){
