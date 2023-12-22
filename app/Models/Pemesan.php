@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pemesan extends Model
 {
     use HasFactory;
-    protected $fillable=['no_ktp','nama','telp','email','alamat'];
     use SoftDeletes;
+    protected $guarded = [] ;
+
+    public function sewa()
+    {
+        return $this->hasMany(Sewa::class);
+    }
 }

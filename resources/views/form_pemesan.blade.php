@@ -77,9 +77,9 @@
                             <label for="aula" class="form-label">Pilih Aula:</label>
                             <select class="form-select" id="aula" name="aula" required>
                                 <option value="" selected disabled>Pilih Aula</option>
-                                <option value="1">Aula 1</option>
-                                <option value="2">Aula 2</option>
-                                <option value="3">Aula 3</option>
+                                @foreach ($aula as $a)
+                                    <option value="{{ $a->id }}">{{ $a->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">

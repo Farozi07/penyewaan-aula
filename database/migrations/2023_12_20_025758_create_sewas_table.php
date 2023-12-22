@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('keperluan');
             $table->boolean('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
