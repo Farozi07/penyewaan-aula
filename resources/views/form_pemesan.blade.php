@@ -20,8 +20,8 @@
     <main>
         <div class="container pt-4 bg-white">
             <div class="row">
-                <div class="col-md-8 col-xl-6">
-                    <h1>Menambah Data Pemesan</h1>
+                <div class="col-md-4 col-xl-4">
+                    <h2>Formulir Pemesanan</h2>
                     <hr>
                     <form action="{{ route('pemesan.store') }}" method="post">
                         @csrf
@@ -58,6 +58,14 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="start" class="form-label" id="start">Tanggal Mulai:</label>
+                            <input type="date" class="form-control" id="start" name="start" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="finish" class="form-label" id="start">Tanggal Selesai:</label>
+                            <input type="date" class="form-control" id="finish" name="finish" required>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label" for="alamat">Alamat</label>
                             <input type="text" id="alamat" name="alamat" value="{{ old('alamat') }}"
                                 class="form-control @error('alamat') is-invalid @enderror">
@@ -65,8 +73,26 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary"> Masukkan</button>
-                        <a href="{{ url()->previous() }}" class="btn btn-success"> Kembali</a>
+                        <div class="mb-3">
+                            <label for="aula" class="form-label">Pilih Aula:</label>
+                            <select class="form-select" id="aula" name="aula" required>
+                                <option value="" selected disabled>Pilih Aula</option>
+                                <option value="1">Aula 1</option>
+                                <option value="2">Aula 2</option>
+                                <option value="3">Aula 3</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="keperluan">Keperluan</label>
+                            <input type="text" id="keperluan" name="keperluan" value="{{ old('keperluan') }}"
+                                class="form-control @error('keperluan') is-invalid @enderror">
+                            @error('keperluan')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary"> Pesan Sekarang</button>
+                        <a href="{{ route('pemesan.index') }}" class="btn btn-success"> Kembali</a>
                     </form>
                 </div>
             </div>

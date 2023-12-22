@@ -60,7 +60,6 @@
                                             data-bs-target="#modalDelete-{{ $p->id }}">
                                             Delete
                                         </button>
-
                                         <!-- Modal Body -->
                                         <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
                                         <div class="modal fade" id="modalDelete-{{ $p->id }}" tabindex="-1"
@@ -86,7 +85,6 @@
                                                             <button type="submit"
                                                                 class="btn btn-danger">Delete</button>
                                                         </form>
-
                                                     </div>
                                                 </div>
                                             </div>
