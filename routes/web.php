@@ -19,9 +19,15 @@ use App\Models\Aula;
 Route::get('/',[PemesanController::class,'index'])->name('pemesan.index');
 Route::get('/pemesan/create',[PemesanController::class,'create'])->name('pemesan.create');
 Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.store');
-Route::get('/pemesan/edit/{pemesan}',[PemesanController::class,'edit'])->name('pemesan.edit');
-Route::put('/pemesan/update/{pemesan}',[PemesanController::class,'update'])->name('pemesan.update');
-Route::post('/pemesan/delete/{pemesan}',[PemesanController::class,'delete'])->name('pemesan.delete');
+Route::post('/pemesan/delete/{id}',[PemesanController::class,'delete'])->name('pemesan.delete');
+
+Route::get('/app',function(){
+    return view('layouts.app');
+});
+
+Route::get('/test',function(){
+    return view('test');
+});
 
 Route::prefix('admin')->group(function(){
     Route::get('/manual-aula',function(){

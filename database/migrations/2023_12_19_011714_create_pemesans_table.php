@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pemesans', function (Blueprint $table) {
             $table->id();
-            $table->char('no_ktp',16)->unique();
+            $table->char('no_ktp',16);
             $table->string('nama');
             $table->char('telp',13);
             $table->string('email');
