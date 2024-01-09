@@ -3,23 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemesan;
+use Illuminate\Http\Request;
 use App\Models\Sewa;
 use App\Models\Aula;
 
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PemesanController extends Controller
+
+class AdminController extends Controller
 {
-    public function index(){
-        return view('index');
+    public function dashboard(){
+        return view ('dashboard');
+    }
+    public function list(Request $request){
+        $search = $request->input('search');
+
+        $pemesan = Pemesan::when($search, function ($query, $search) {
+                            return $query->where('nama', 'like', '%' . $search . '%')
+                                         ->orWhere('no_ktp', 'like', '%' . $search . '%');
+                        })->paginate(10);
+        $pemesan=Pemesan::all();
+        return view ('list_pemesan',['pemesan'=>$pemesan]);
+    }
+    public function arsip(Request $request){
+        $search = $request->input('search');
+
+        $pemesan = Pemesan::onlyTrashed()
+                        ->when($search, function ($query, $search) {
+                            return $query->where('nama', 'like', '%' . $search . '%')
+                                         ->orWhere('no_ktp', 'like', '%' . $search . '%');
+                        })->paginate(10);
+
+        return view('arsip_pemesan', ['pemesan' => $pemesan]);
     }
     public function create(){
         $aula = Aula::all();
-        return view ('form_pemesan',['aula'=>$aula]);
+        return view ('admin_create',['aula'=>$aula]);
     }
-
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'no_ktp'=>'required',
@@ -58,10 +78,10 @@ class PemesanController extends Controller
             'keperluan' => $request->keperluan,
             'status' => false,
         ]);
-        return redirect()->route('pemesan.index')->with('success', 'Data berhasil disimpan.');
-
+        return redirect()->route('admin.list')->with('success', 'Data berhasil disimpan.');
     }
-    public function update($id){
-
+    public function delete($id){
+        Pemesan::find($id)->delete();
+        return redirect(route('admin.list'))->with('success','Data berhasil berhasil dihapus');
     }
 }

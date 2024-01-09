@@ -343,10 +343,31 @@
                         <li class="menu-title">Navigation</li>
 
                         <li>
-                            <a href="index.html">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <i class="mdi mdi-view-dashboard-outline"></i>
-                                <span class="badge bg-success rounded-pill float-end">9+</span>
+                                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                                 <span> Dashboard </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.list') }}">
+                                <i class="mdi mdi-view-dashboard-outline"></i>
+                                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                                <span> List Pemesan </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.create') }}">
+                                <i class="mdi mdi-view-dashboard-outline"></i>
+                                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                                <span> Tambah Pemesan </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.arsip') }}">
+                                <i class="mdi mdi-view-dashboard-outline"></i>
+                                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                                <span> Arsip Pemesan </span>
                             </a>
                         </li>
                     </ul>

@@ -1,18 +1,26 @@
-@extends('layouts.backend.app')
+@extends('layouts.app')
 @section('title', 'Daftar Pemesan')
-@section('pagetitle', '')
+@section('pagetitle', 'Daftar Pemesan')
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="py-4">
-                <h2>Daftar Pemesan</h2>
-            </div>
-            <a href="{{ route('pemesan.create') }}" class="btn btn-primary">Tambah Pemesan</a><br><br>
+            <a href="{{ route('admin.create') }}" class="btn btn-primary">Tambah Pemesan</a><br><br>
+            <form action="{{ route('admin.list') }}" method="get" class="form-inline">
+                <div class="row">
+                    <div class="col-md-6 col-xl-6">
+                        <label for="search" class="mr-2">Cari Pemesan:</label>
+                        <input type="text" name="search" class="form-control">
+                    </div>
+                    <div class="col-md-6 col-xl-6">
+                        <br>
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </div>
+            </form>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        {{-- <th>ID</th> --}}
                         <th>NIK</th>
                         <th>Nama</th>
                         <th>No Telpon</th>
@@ -30,9 +38,40 @@
                             <td>{{ $p->telp }}</td>
                             <td>{{ $p->email }}</td>
                             <td>{{ $p->alamat }}</td>
-                            <td></td>
                             <td>
-                                <a href=""class="btn btn-success">DETAIL</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                    data-target="#detail-{{ $p->id }}">
+                                    Detail
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="detail-{{ $p->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-info">
+                                                <h5 class="modal-title">Detail Pemesan</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>No KTP :</b> {{ $p->no_ktp }}</p>
+                                                <p><b>Nama :</b> {{ $p->nama }}</p>
+                                                <p><b>No Telp :</b> {{ $p->telp }}</p>
+                                                <p><b>Email :</b> {{ $p->email }}</p>
+                                                <p><b>Alamat :</b> {{ $p->alamat }}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- End Modal Info --}}
+
                                 <!-- Button trigger modal -->
                                 <!-- Modal trigger button -->
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -58,7 +97,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <form action="{{ route('pemesan.delete', $p->id) }}" method="post">
+                                                <form action="{{ route('admin.delete', $p->id) }}" method="post">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                 </form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PemesanController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Aula;
@@ -15,18 +16,34 @@ use App\Models\Aula;
 |
 */
 
-//Route Pemesan
+//Home
 Route::get('/',[PemesanController::class,'index'])->name('pemesan.index');
+
+//Route Admin
+Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+Route::get('/admin/list',[AdminController::class,'list'])->name('admin.list');
+Route::get('/admin/arsip',[AdminController::class,'arsip'])->name('admin.arsip');
+Route::get('/admin/create',[AdminController::class,'create'])->name('admin.create');
+Route::post('/admin/store',[AdminController::class,'store'])->name('admin.store');
+Route::post('/admin/delete/{id}',[AdminController::class,'delete'])->name('admin.delete');
+
+
+
+//Route Pemesan
 Route::get('/pemesan/create',[PemesanController::class,'create'])->name('pemesan.create');
 Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.store');
-Route::post('/pemesan/delete/{id}',[PemesanController::class,'delete'])->name('pemesan.delete');
 
+
+//Test Routing
 Route::get('/app',function(){
     return view('layouts.app');
 });
 
 Route::get('/test',function(){
     return view('test');
+});
+Route::get('/login',function(){
+    return view('login');
 });
 
 Route::prefix('admin')->group(function(){
