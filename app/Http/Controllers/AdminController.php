@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemesan;
 use Illuminate\Http\Request;
+use App\Models\Pemesan;
 use App\Models\Sewa;
 use App\Models\Aula;
 
@@ -15,26 +15,25 @@ class AdminController extends Controller
     public function dashboard(){
         return view ('dashboard');
     }
-    public function list(Request $request){
-        $search = $request->input('search');
-
-        $pemesan = Pemesan::when($search, function ($query, $search) {
-                            return $query->where('nama', 'like', '%' . $search . '%')
-                                         ->orWhere('no_ktp', 'like', '%' . $search . '%');
-                        })->paginate(10);
-        $pemesan=Pemesan::all();
-        return view ('list_pemesan',['pemesan'=>$pemesan]);
+    public function list(){
+        $data=Sewa::with(['pemesan','aula'])->where('status',false)->get();
+        // return $data;
+        return view ('list_pemesan',compact('data'));
     }
-    public function arsip(Request $request){
-        $search = $request->input('search');
-
-        $pemesan = Pemesan::onlyTrashed()
-                        ->when($search, function ($query, $search) {
-                            return $query->where('nama', 'like', '%' . $search . '%')
-                                         ->orWhere('no_ktp', 'like', '%' . $search . '%');
-                        })->paginate(10);
-
-        return view('arsip_pemesan', ['pemesan' => $pemesan]);
+    public function booked(){
+        $data=Sewa::with(['pemesan','aula'])->where('status',true)->get();
+        // return $data;
+        return view ('booked',compact('data'));
+    }
+    public function status(Request $request, $id){
+    $sewa = Sewa::find($id);
+    $sewa->update(['status' => true]);
+    return redirect()->route('admin.list')->with('success', 'Pesanan telah Diterima.');
+    }
+    public function arsip(){
+        $data=Sewa::with(['pemesan','aula'])->onlyTrashed()->get();
+        // return $data;
+        return view ('arsip_pemesan',compact('data'));
     }
     public function create(){
         $aula = Aula::all();
@@ -81,7 +80,7 @@ class AdminController extends Controller
         return redirect()->route('admin.list')->with('success', 'Data berhasil disimpan.');
     }
     public function delete($id){
-        Pemesan::find($id)->delete();
-        return redirect(route('admin.list'))->with('success','Data berhasil berhasil dihapus');
+        Sewa::find($id)->delete();
+        return redirect(route('admin.booked'))->with('success','Data berhasil diarsip');
     }
 }

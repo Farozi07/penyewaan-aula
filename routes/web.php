@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PemesanController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Aula;
+use App\Models\Pemesan;
+use App\Models\Sewa;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +23,39 @@ use App\Models\Aula;
 Route::get('/',[PemesanController::class,'index'])->name('pemesan.index');
 
 //Route Admin
-Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
-Route::get('/admin/list',[AdminController::class,'list'])->name('admin.list');
-Route::get('/admin/arsip',[AdminController::class,'arsip'])->name('admin.arsip');
-Route::get('/admin/create',[AdminController::class,'create'])->name('admin.create');
-Route::post('/admin/store',[AdminController::class,'store'])->name('admin.store');
-Route::post('/admin/delete/{id}',[AdminController::class,'delete'])->name('admin.delete');
+Route::prefix('admin')->middleware('auth')->group(function(){
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/list',[AdminController::class,'list'])->name('admin.list');
+    Route::get('/booked',[AdminController::class,'booked'])->name('admin.booked');
+    Route::get('/list/arsip',[AdminController::class,'arsip'])->name('admin.list.arsip');
+    Route::get('/create',[AdminController::class,'create'])->name('admin.create');
+    Route::post('/store',[AdminController::class,'store'])->name('admin.store');
+    Route::post('/status/{id}',[AdminController::class,'status'])->name('admin.status');
+    Route::post('/delete/{id}',[AdminController::class,'delete'])->name('admin.arsip');
+
+//Route Menambahkan Data Aula
+    Route::get('/manual-aula',function(){
+        Aula::create(
+            [
+                'nama' => 'Aula Bhinneka Tunggal Ika',
+                'deskripsi' => '100 S.D 150 Orang'
+            ]
+        );
+
+        Aula::create(
+            [
+                'nama' => 'Aula Garuda',
+                'deskripsi' => '100 S.D 150 Orang'
+            ]
+        );
+        Aula::create(
+            [
+                'nama' => 'Aula Akcaya',
+                'deskripsi' => '40 Orang'
+            ]
+        );
+    });
+});
 
 
 
@@ -35,34 +65,98 @@ Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.
 
 
 //Test Routing
+
 Route::get('/app',function(){
     return view('layouts.app');
 });
 
-Route::get('/test',function(){
-    return view('test');
-});
-Route::get('/login',function(){
-    return view('login');
-});
+Route::get('/test',[TestController::class,'index'])->name('test');
+Route::get('/test/list',[TestController::class,'listEvent'])->name('list.event');
+
 
 Route::prefix('admin')->group(function(){
-    Route::get('/manual-aula',function(){
-        Aula::create(
+    Route::get('/tambah-pemesan',function(){
+        $pemesan=Pemesan::create(
             [
-                'nama' => 'Aula A',
-                'deskripsi' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis dolores error temporibus! Voluptate aliquam quas cupiditate ipsa, porro magnam quibusdam omnis, animi harum aperiam consequatur facere est itaque laboriosam perspiciatis ipsam perferendis. Eos pariatur nam porro harum, sint enim iure ducimus, minima voluptates quidem sapiente, deleniti provident fugiat distinctio libero!'
+                'no_ktp'=>'1234567891',
+                'nama'=>'Alex',
+                'telp'=>'1234567890',
+                'email'=>'alex@gmail.com',
+                'alamat'=>'AA'
             ]
         );
-
-        Aula::create(
+        Sewa::create(
             [
-                'nama' => 'Aula B',
-                'deskripsi' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis dolores error temporibus! Voluptate aliquam quas cupiditate ipsa, porro magnam quibusdam omnis, animi harum aperiam consequatur facere est itaque laboriosam perspiciatis ipsam perferendis. Eos pariatur nam porro harum, sint enim iure ducimus, minima voluptates quidem sapiente, deleniti provident fugiat distinctio libero!'
+                'aula_id'=>1,
+                'pemesan_id'=>$pemesan->id,
+                'start'=>'2024-01-13',
+                'finish'=>'2024-01-13',
+                'keperluan'=>'AA',
+                'status'=>false
+            ]
+        );
+        $pemesan2=Pemesan::create(
+            [
+                'no_ktp'=>'1234567892',
+                'nama'=>'Alex',
+                'telp'=>'1234567890',
+                'email'=>'alex@gmail.com',
+                'alamat'=>'AA'
+            ]
+        );
+        Sewa::create(
+            [
+                'aula_id'=>1,
+                'pemesan_id'=>$pemesan2->id,
+                'start'=>'2024-01-13',
+                'finish'=>'2024-01-13',
+                'keperluan'=>'AA',
+                'status'=>false
+            ]
+        );
+        $pemesan3=Pemesan::create(
+            [
+                'no_ktp'=>'1234567893',
+                'nama'=>'Alex',
+                'telp'=>'1234567890',
+                'email'=>'alex@gmail.com',
+                'alamat'=>'AA'
+            ]
+        );
+        Sewa::create(
+            [
+                'aula_id'=>2,
+                'pemesan_id'=>$pemesan3->id,
+                'start'=>'2024-01-13',
+                'finish'=>'2024-01-13',
+                'keperluan'=>'AA',
+                'status'=>false
+            ]
+        );
+        $pemesan4=Pemesan::create(
+            [
+                'no_ktp'=>'1234567894',
+                'nama'=>'Alex',
+                'telp'=>'1234567890',
+                'email'=>'alex@gmail.com',
+                'alamat'=>'AA'
+            ]
+        );
+        Sewa::create(
+            [
+                'aula_id'=>2,
+                'pemesan_id'=>$pemesan4->id,
+                'start'=>'2024-01-13',
+                'finish'=>'2024-01-13',
+                'keperluan'=>'AA',
+                'status'=>false
             ]
         );
     });
 });
 
 
-//Route Sewa
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

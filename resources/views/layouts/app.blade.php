@@ -21,6 +21,20 @@
     <!-- Sweet Alert-->
     <link href="{{ asset('/') }}assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- Plugin css -->
+    <link href="{{ asset('/') }}/assets/libs/fullcalendar/main.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- third party css -->
+    <link href="{{ asset('/') }}assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
+
 </head>
 
 <!-- body start -->
@@ -28,7 +42,6 @@
 <body class="loading" data-layout-color="light" data-layout-mode="default" data-layout-size="fluid"
     data-topbar-color="light" data-leftbar-position="fixed" data-leftbar-color="light" data-leftbar-size='default'
     data-sidebar-user='true'>
-
     <!-- Begin page -->
     <div id="wrapper">
 
@@ -248,7 +261,12 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->
-                        <a href="auth-logout.html" class="dropdown-item notify-item">
+                        <form id="keluar" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('keluar').submit();"
+                            class="dropdown-item notify-item">
                             <i class="fe-log-out"></i>
                             <span>Logout</span>
                         </a>
@@ -350,26 +368,34 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.list') }}">
-                                <i class="mdi mdi-view-dashboard-outline"></i>
+                            <a href="{{ route('admin.booked') }}">
+                                <i class="fe-user-check"></i>
                                 {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                                <span> Booked </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.list') }}">
+                                <i class="mdi mdi-account-alert-outline"></i>
+                                @yield('notif.pemesan')
                                 <span> List Pemesan </span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.create') }}">
-                                <i class="mdi mdi-view-dashboard-outline"></i>
+                                <i class="fe-user-plus"></i>
                                 {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                                 <span> Tambah Pemesan </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.arsip') }}">
-                                <i class="mdi mdi-view-dashboard-outline"></i>
+                            <a href="{{ route('admin.list.arsip') }}">
+                                <i class="fe-archive"></i>
                                 {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                                 <span> Arsip Pemesan </span>
                             </a>
                         </li>
+
                     </ul>
 
                 </div>
@@ -591,10 +617,36 @@
     <script src="{{ asset('/') }}/assets/libs/feather-icons/feather.min.js"></script>
 
     <!-- Sweet Alerts js -->
-    <script src="assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
 
     <!-- Sweet alert init js-->
-    <script src="assets/js/pages/sweet-alerts.init.js"></script>
+    <script src="{{ asset('/') }}assets/js/pages/sweet-alerts.init.js"></script>
+
+    <!-- plugin js -->
+    <script src="{{ asset('/') }}/assets/libs/moment/min/moment.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/fullcalendar/main.min.js"></script>
+
+    <!-- Calendar init -->
+    <script src="{{ asset('/') }}/assets/js/pages/calendar.init.js"></script>
+
+    <!-- third party js -->
+    <script src="{{ asset('/') }}assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <!-- third party js ends -->
+
+    <!-- Datatables init -->
+    <script src="{{ asset('/') }}assets/js/pages/datatables.init.js"></script>
 
     <!-- App js -->
     <script src="{{ asset('/') }}/assets/js/app.min.js"></script>

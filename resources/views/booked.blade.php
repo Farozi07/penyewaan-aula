@@ -59,18 +59,17 @@
                                 </div>
                                 {{-- End Modal Info --}}
 
-
                                 <!-- Button trigger modal -->
                                 <!-- Modal trigger button -->
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#modalTerima-{{ $p->id }}">
-                                    Terima
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#modalDelete-{{ $p->id }}">
+                                    Arsipkan
                                 </button>
 
                                 <!-- Modal Body -->
                                 <!-- If you want to close by clicking outside the modal, remove data-backdrop and data-keyboard -->
-                                <div class="modal fade" id="modalTerima-{{ $p->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="modalTitleId" aria-hidden="true">
+                                <div class="modal fade" id="modalDelete-{{ $p->pemesan->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
                                         role="document">
                                         <div class="modal-content">
@@ -80,19 +79,20 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Apakah Anda yakin ingin menerima {{ $p->nama }}
+                                                Apakah Anda yakin ingin Mengarsipkan {{ $p->pemesan->nama }}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <form action="{{ route('admin.status', $p->id) }}" method="post">
+                                                <form action="{{ route('admin.arsip', $p->pemesan->id) }}" method="post">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-success">Terima</button>
+                                                    <button type="submit" class="btn btn-danger">Arsipkan</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
 
 
                                 <!-- Bootstrap 4 requires Popper.js and Bootstrap.js -->

@@ -6,15 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!-- Bootstrap CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'>
-    <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{ asset('/') }}/assets/images/favicon.ico">
+
+    <!-- App css -->
+
+    <link href="{{ asset('/') }}/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- icons -->
+    <link href="{{ asset('/') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert-->
+    <link href="{{ asset('/') }}assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Plugin css -->
+    <link href="{{ asset('/') }}/assets/libs/fullcalendar/main.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- third party css -->
+    <link href="{{ asset('/') }}assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/') }}assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css"
+        rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <!-- Logo di sebelah kiri -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('pemesan.index') }}">
             <img src="https://bpsdm.kalbarprov.go.id/wp-content/uploads/2022/11/Group-13.png" alt="Logo"
                 height="30">
             Penyewaan Aula
@@ -36,14 +59,13 @@
                 <li class="nav-item {{ request()->is('sewa-aula') ? 'active' : '' }}">
                     <a class="nav-link " href="">Informasi</a>
                 </li>
-                <!-- Tambahkan menu lain sesuai kebutuhan -->
             </ul>
         </div>
 
         <!-- Tombol Login di sebelah kanan -->
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link btn btn-primary text-white" style="" href="">Login</a>
+                <a class="nav-link btn btn-primary text-white" style="" href="{{ route('login') }}">Login</a>
             </li>
         </ul>
     </nav>
@@ -78,16 +100,49 @@
     </script>
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+    <!-- Vendor -->
+    <script src="{{ asset('/') }}/assets/libs/jquery/jquery.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/node-waves/waves.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/feather-icons/feather.min.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="{{ asset('/') }}assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="{{ asset('/') }}assets/js/pages/sweet-alerts.init.js"></script>
+
+    <!-- plugin js -->
+    <script src="{{ asset('/') }}/assets/libs/moment/min/moment.min.js"></script>
+    <script src="{{ asset('/') }}/assets/libs/fullcalendar/main.min.js"></script>
+
+    <!-- Calendar init -->
+    <script src="{{ asset('/') }}/assets/js/pages/calendar.init.js"></script>
+
+    <!-- third party js -->
+    <script src="{{ asset('/') }}assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="{{ asset('/') }}assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <!-- third party js ends -->
+
+    <!-- Datatables init -->
+    <script src="{{ asset('/') }}assets/js/pages/datatables.init.js"></script>
+
+    <!-- App js -->
+    <script src="{{ asset('/') }}/assets/js/app.min.js"></script>
 </body>
 
 </html>
