@@ -47,7 +47,7 @@
                                                 <p><b>Email :</b> {{ $p->pemesan->email }}</p>
                                                 <p><b>Alamat :</b> {{ $p->pemesan->alamat }}</p>
                                                 <p><b>Mulai :</b> {{ $p->start }}</p>
-                                                <p><b>Selesai :</b> {{ $p->finish }}</p>
+                                                <p><b>Selesai :</b> {{ $p->end }}</p>
                                                 <p><b>Keperluan :</b> {{ $p->keperluan }}</p>
                                             </div>
                                             <div class="modal-footer">

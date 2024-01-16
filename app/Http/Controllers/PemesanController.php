@@ -6,6 +6,9 @@ use App\Models\Pemesan;
 use App\Models\Sewa;
 use App\Models\Aula;
 
+use Carbon\Carbon;
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,8 +16,33 @@ use Illuminate\Support\Facades\Validator;
 class PemesanController extends Controller
 {
     public function index(){
-        return view('index');
+        $events=[];
+        $datas=Sewa::with(['pemesan','aula'])->where('status',true)->get();
+
+        foreach ($datas as $data) {
+            $events[]=[
+                'title'=>$data->aula->nama,
+                'start'=>$data->start,
+                'end'=>Carbon::parse($data->end)->addDay(),
+                'category'=>$data->aula->category,
+                'className'=>['bg-'. $data->aula->category],
+            ];
+        }
+        // return $events;
+        // return response()->json(['events' => $events]);
+        return view('index', compact('events'));
     }
+
+    public function info(){
+        return view('info');
+    }
+
+    public function getPemesanData($id)
+    {
+        $pemesan = Sewa::find($id);
+        return response()->json($pemesan);
+    }
+
     public function create(){
         $aula = Aula::all();
         return view ('form_pemesan',['aula'=>$aula]);
@@ -27,7 +55,7 @@ class PemesanController extends Controller
             'telp'=>'required',
             'email'=>'required',
             'start'=>'required',
-            'finish'=>'required',
+            'end'=>'required',
             'alamat'=>'required',
             'aula'=>'required |in:1,2,3',
             'keperluan'=>'required',
@@ -54,7 +82,7 @@ class PemesanController extends Controller
             'aula_id' => $request->aula,
             'pemesan_id' => $pemesan->id,
             'start' => $request->start,
-            'finish' => $request->finish,
+            'end' => $request->end,
             'keperluan' => $request->keperluan,
             'status' => false,
         ]);

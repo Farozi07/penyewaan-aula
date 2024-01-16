@@ -11,17 +11,19 @@ class TestController extends Controller
 {
     public function index()
     {
-        $events=[];
-        $datas=Sewa::with(['pemesan','aula'])->where('status',true)->get();
-
-        foreach ($datas as $data) {
-            $events[]=[
-                'nama'=>$data->aula->nama,
-                'start'=>$data->start,
-                'finish'=>$data->finish,
-            ];
+        $events = [];
+        $data = Sewa::all();
+        if($data->count()){
+           foreach ($data as $key => $value) {
+             $events[] = Calendar::event(
+                 $value->title,
+                 true,
+                 new \DateTime($value->start),
+                 new \DateTime($value->end.' +1 day')
+             );
+           }
         }
-        // return $events;
-        return view('test', compact('events'));
+       $calendar = Calendar::addEvents($events);
+       return view('fullcalendar', compact('calendar'));
     }
 }

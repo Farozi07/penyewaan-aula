@@ -19,8 +19,13 @@ use App\Models\Sewa;
 |
 */
 
-//Home
+
+//Route Pemesan
 Route::get('/',[PemesanController::class,'index'])->name('pemesan.index');
+Route::get('/informasi',[PemesanController::class,'info'])->name('pemesan.info');
+Route::get('/pemesan/create',[PemesanController::class,'create'])->name('pemesan.create');
+Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.store');
+
 
 //Route Admin
 Route::prefix('admin')->middleware('auth')->group(function(){
@@ -38,20 +43,23 @@ Route::prefix('admin')->middleware('auth')->group(function(){
         Aula::create(
             [
                 'nama' => 'Aula Bhinneka Tunggal Ika',
-                'deskripsi' => '100 S.D 150 Orang'
+                'deskripsi' => '100 Orang',
+                'category' => 'danger',
             ]
         );
 
         Aula::create(
             [
                 'nama' => 'Aula Garuda',
-                'deskripsi' => '100 S.D 150 Orang'
+                'deskripsi' => '100 S.D 150 Orang',
+                'category' => 'warning',
             ]
         );
         Aula::create(
             [
                 'nama' => 'Aula Akcaya',
-                'deskripsi' => '40 Orang'
+                'deskripsi' => '40 Orang',
+                'category' => 'success',
             ]
         );
     });
@@ -59,9 +67,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
 
 
-//Route Pemesan
-Route::get('/pemesan/create',[PemesanController::class,'create'])->name('pemesan.create');
-Route::post('/pemesan/store',[PemesanController::class,'store'])->name('pemesan.store');
+
 
 
 //Test Routing
@@ -70,9 +76,11 @@ Route::get('/app',function(){
     return view('layouts.app');
 });
 
-Route::get('/test',[TestController::class,'index'])->name('test');
-Route::get('/test/list',[TestController::class,'listEvent'])->name('list.event');
-
+// Route::get('/test',[TestController::class,'index'])->name('test.index');
+Route::controller(TestController::class)->group(function(){
+    Route::get('/test', 'index');
+    Route::post('/testAjax', 'ajax');
+});
 
 Route::prefix('admin')->group(function(){
     Route::get('/tambah-pemesan',function(){
@@ -90,7 +98,7 @@ Route::prefix('admin')->group(function(){
                 'aula_id'=>1,
                 'pemesan_id'=>$pemesan->id,
                 'start'=>'2024-01-13',
-                'finish'=>'2024-01-13',
+                'end'=>'2024-01-13',
                 'keperluan'=>'AA',
                 'status'=>false
             ]
@@ -109,7 +117,7 @@ Route::prefix('admin')->group(function(){
                 'aula_id'=>1,
                 'pemesan_id'=>$pemesan2->id,
                 'start'=>'2024-01-13',
-                'finish'=>'2024-01-13',
+                'end'=>'2024-01-13',
                 'keperluan'=>'AA',
                 'status'=>false
             ]
@@ -128,7 +136,7 @@ Route::prefix('admin')->group(function(){
                 'aula_id'=>2,
                 'pemesan_id'=>$pemesan3->id,
                 'start'=>'2024-01-13',
-                'finish'=>'2024-01-13',
+                'end'=>'2024-01-13',
                 'keperluan'=>'AA',
                 'status'=>false
             ]
@@ -147,7 +155,7 @@ Route::prefix('admin')->group(function(){
                 'aula_id'=>2,
                 'pemesan_id'=>$pemesan4->id,
                 'start'=>'2024-01-13',
-                'finish'=>'2024-01-13',
+                'end'=>'2024-01-13',
                 'keperluan'=>'AA',
                 'status'=>false
             ]

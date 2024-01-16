@@ -36,9 +36,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <!-- Logo di sebelah kiri -->
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand ms-2" href="{{ route('pemesan.index') }}">
             <img src="https://bpsdm.kalbarprov.go.id/wp-content/uploads/2022/11/Group-13.png" alt="Logo"
                 height="30">
             Penyewaan Aula
@@ -58,27 +59,60 @@
                     <a class="nav-link" href="{{ route('pemesan.create') }}">Pesan</a>
                 </li>
                 <li class="nav-item {{ request()->is('sewa-aula') ? 'active' : '' }}">
-                    <a class="nav-link " href="">Informasi</a>
+                    <a class="nav-link " href="{{ route('pemesan.info') }}">Informasi</a>
                 </li>
-                <!-- Tambahkan menu lain sesuai kebutuhan -->
             </ul>
         </div>
 
         <!-- Tombol Login di sebelah kanan -->
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto me-2">
             <li class="nav-item">
-                <a class="nav-link btn btn-primary text-white" style="" href="login.blade.php">Login</a>
+                <a class="nav-link btn btn-primary text-white" style="" href="{{ route('login') }}">Login</a>
             </li>
         </ul>
     </nav>
 
-    <div class="row">
+
+    <div class="row mt-5">
         <div class="col-md-6 col-xl-6">
-            <h2>Gambar</h2>
+            <h2 style="text-align: center">Gambar</h2>
             <hr>
-            <img src="https://via.placeholder.com/800x400" alt="Gambar" class="img-fluid">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ asset('/') }}/assets/images/gallery/1.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('/') }}/assets/images/gallery/2.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('/') }}/assets/images/gallery/3.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('/') }}/assets/images/gallery/4.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('/') }}/assets/images/gallery/5.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
-        <div class="col-md-5 col-xl-5">
+        <div class="col-md-6 col-xl-6">
             <h2>Formulir Pemesanan</h2>
             <hr>
             <form action="{{ route('pemesan.store') }}" method="post">
@@ -120,8 +154,8 @@
                     <input type="date" class="form-control" id="start" name="start" required>
                 </div>
                 <div class="mb-3">
-                    <label for="finish" class="form-label" id="start">Tanggal Selesai:</label>
-                    <input type="date" class="form-control" id="finish" name="finish" required>
+                    <label for="end" class="form-label" id="start">Tanggal Selesai:</label>
+                    <input type="date" class="form-control" id="end" name="end" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="alamat">Alamat</label>
@@ -152,6 +186,7 @@
                 <a href="{{ route('pemesan.index') }}" class="btn btn-success"> Kembali</a>
             </form>
         </div>
+    </div>
 
     </div>
 

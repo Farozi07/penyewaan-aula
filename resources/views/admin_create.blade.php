@@ -43,8 +43,8 @@
                     <input type="date" class="form-control" id="start" name="start" required>
                 </div>
                 <div class="mb-3">
-                    <label for="finish" class="form-label" id="start">Tanggal Selesai:</label>
-                    <input type="date" class="form-control" id="finish" name="finish" required>
+                    <label for="end" class="form-label" id="end">Tanggal Selesai:</label>
+                    <input type="date" class="form-control" id="end" name="end" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="alamat">Alamat</label>
